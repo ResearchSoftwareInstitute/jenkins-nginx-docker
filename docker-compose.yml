@@ -7,8 +7,9 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ./nginx:/etc/nginx/conf.d
-      - ./logs/nginx:/var/log/nginx
+      - /home/jenkins/nginx/etc/nginx/conf.d:/etc/nginx/conf.d
+      - /home/jenkins/nginx/etc/ssl/certs:/etc/ssl/certs
+      - /home/jenkins/nginx/var/log/nginx:/var/log/nginx
     networks:
       - jenkins_network
     links:
@@ -26,14 +27,15 @@ services:
       - '50000:50000'
       - '50022:50022'
     volumes:
-      - ./jenkins_home:/var/jenkins_home
+      - /home/jenkins/jenkins/var/jenkins/home:/var/jenkins_home
+      - /home/jenkins/jenkins/etc/hosts.d:/etc/hosts.d
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - jenkins_network
     environment:
-      - UID_JENKINS=1000
-      - GID_JENKINS=1000
-      - JENKINS_OPTS="--prefix=/jenkins"
+      - UID_JENKINS=1003
+      - GID_JENKINS=1003
+      - JENKINS_OPTS="--prefix=/"
     restart: always
 
 networks:

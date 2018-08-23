@@ -1,7 +1,7 @@
 FROM jenkins/jenkins:lts
 MAINTAINER Michael J. Stealey <michael.j.stealey@gmail.com>
 
-ARG docker_version=17.12.0~ce-0~debian
+ARG docker_version=18.06.0~ce~3-0~debian
 
 USER root
 RUN apt-get update && apt-get -y install \
@@ -19,8 +19,8 @@ RUN apt-get update && apt-get -y install \
   && apt-get update && apt-get -y install \
     docker-ce=${docker_version}
 
-ENV UID_JENKINS=1000
-ENV GID_JENKINS=1000
+ENV UID_JENKINS=1003
+ENV GID_JENKINS=1003
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
